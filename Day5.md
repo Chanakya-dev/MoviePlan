@@ -28,6 +28,12 @@ function Home() {
       try {
         const response = await axios.get(
           `https://api.themoviedb.org/3/movie/popular`
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+
         );
         setMovies(response.data.results);
         setLoading(false);
