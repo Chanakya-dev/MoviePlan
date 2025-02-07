@@ -189,7 +189,7 @@ export default movieSlice.reducer;
 ### ` src/components/GenreDrawer.js`
 
 ```javascript
-  import React, { useEffect } from 'react';
+ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Drawer,
@@ -202,7 +202,7 @@ import {
   useMediaQuery,
   Box,
 } from '@mui/material';
-import { fetchGenres, setSelectedGenre } from '../redux/MovieSlice';
+import { clearSelectedGenre, fetchGenres, setSelectedGenre } from '../redux/movieSlice';
 
 const DRAWER_WIDTH = 240;
 
@@ -219,8 +219,13 @@ function GenreDrawer() {
   }, [dispatch]);
 
   const handleGenreClick = (genre) => {
-      dispatch(setSelectedGenre(genre));
+    if (selectedGenre?.id === genre.id) {
+      dispatch(clearSelectedGenre()); 
+    } else {
+      dispatch(setSelectedGenre(genre)); 
+    }
   };
+  
 
   const drawer = (
     <>
@@ -359,6 +364,7 @@ function App() {
               position: 'fixed',
               height: 'calc(100vh - 64px)', // Subtract Navbar height
               overflowY: 'auto',
+              scrollbarColor: 'rgba(23, 22, 22, 0.2) rgb(16, 15, 15)',
               overflowX:'hidden',
               borderRight: '1px solid #e0e0e0',
               bgcolor: 'background.paper',
